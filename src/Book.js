@@ -6,7 +6,7 @@ class Book extends Component {
     return(
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + this.props.background +')' }}></div>
+          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: this.props.book.background }}></div>
           <div className="book-shelf-changer">
             <select>
               <option value="move" disabled>Move to...</option>
@@ -17,17 +17,16 @@ class Book extends Component {
             </select>
           </div>
         </div>
-        <div className="book-title">{this.props.bookTitle}</div>
-        <div className="book-authors">{this.props.bookAuthor}</div>
+        <div className="book-title">{this.props.book.bookTitle}</div>
+        <div className="book-authors">{this.props.book.bookAuthor}</div>
       </div>
     );
   }
 }
 
 Book.propTypes = {
-  background: PropTypes.string.isRequired,
-  bookTitle: PropTypes.string.isRequired,
-  bookAuthor: PropTypes.string.isRequired,
+  shelfType: PropTypes.string.isRequired,
+  book: PropTypes.object.isRequired,
 }
 
 export default Book;
