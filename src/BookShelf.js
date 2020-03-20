@@ -10,7 +10,7 @@ class BookShelf extends Component {
       <div className="list-books-content">
         <div>
           <div className="bookshelf">
-            <h2 className="bookshelf-title">{this.props.shelfType}</h2>
+            <h2 className="bookshelf-title">{Constants.shelfAlias[this.props.shelfType]}</h2>
             <div className="bookshelf-books">
               <ol className="books-grid">
               {this.props.bookDetails.filter((book) => {

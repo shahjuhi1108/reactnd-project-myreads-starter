@@ -5,7 +5,6 @@ import * as Constants from './Constants'
 class Book extends Component {
   handleChange = (event) => {
     event.preventDefault();
-    //this.props.handleShelfTypeChange({"id" : this.props.book.id, "newShelf" : event.target.value});
     this.props.handleShelfTypeChange(this.props.book, event.target.value)
   }
 
@@ -28,7 +27,11 @@ class Book extends Component {
           </div>
         </div>
         <div className="book-title">{this.props.book.title}</div>
-        <div className="book-authors">{this.props.book.authors}</div>
+        <div className="book-authors">
+        {this.props.book.authors.map((author) => (
+          <div className="book-author">{author}</div>
+        ))}
+        </div>
       </div>
     );
   }
