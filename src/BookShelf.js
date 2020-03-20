@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Book from './Book'
 import PropTypes from 'prop-types'
+import * as Constants from './Constants'
+
 
 class BookShelf extends Component {
   render() {
@@ -12,10 +14,10 @@ class BookShelf extends Component {
             <div className="bookshelf-books">
               <ol className="books-grid">
               {this.props.bookDetails.filter((book) => {
-                  return this.props.shelfType === book.type
+                  return this.props.shelfType === book.shelf
                 }).map((book) => (
-                  <li key={book.bookTitle}>
-                  <Book shelfType={this.props.shelfType} book={book}/>
+                  <li key={book.id}>
+                  <Book handleShelfTypeChange={this.props.handleShelfTypeChange} shelfType={this.props.shelfType} book={book}/>
                   </li>
               ))}
               </ol>
@@ -30,6 +32,7 @@ class BookShelf extends Component {
 BookShelf.propTypes = {
   shelfType: PropTypes.string.isRequired,
   bookDetails: PropTypes.array.isRequired,
+  handleShelfTypeChange: PropTypes.func.isRequired,
 }
 
 export default BookShelf;

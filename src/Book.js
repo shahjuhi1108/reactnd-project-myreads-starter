@@ -1,24 +1,34 @@
 import React,  { Component } from 'react'
 import PropTypes from 'prop-types'
+import * as Constants from './Constants'
 
 class Book extends Component {
+  handleChange = (event) => {
+    event.preventDefault();
+    //this.props.handleShelfTypeChange({"id" : this.props.book.id, "newShelf" : event.target.value});
+    this.props.handleShelfTypeChange(this.props.book, event.target.value)
+  }
+
   render() {
+
+    const options = [];
+
+    Object.keys(Constants.shelfAlias).forEach((shelfType) => (
+      options.push(<option key={shelfType} value={shelfType}>{Constants.shelfAlias[shelfType]}</option>)
+    ))
+
     return(
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: this.props.book.background }}></div>
+          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + this.props.book.imageLinks.thumbnail + ')' }}></div>
           <div className="book-shelf-changer">
-            <select>
-              <option value="move" disabled>Move to...</option>
-              <option value="currentlyReading">Currently Reading</option>
-              <option value="wantToRead">Want to Read</option>
-              <option value="read">Read</option>
-              <option value="none">None</option>
+            <select value={this.props.shelfType} onChange={this.handleChange}>
+              {options}
             </select>
           </div>
         </div>
-        <div className="book-title">{this.props.book.bookTitle}</div>
-        <div className="book-authors">{this.props.book.bookAuthor}</div>
+        <div className="book-title">{this.props.book.title}</div>
+        <div className="book-authors">{this.props.book.authors}</div>
       </div>
     );
   }
@@ -27,6 +37,7 @@ class Book extends Component {
 Book.propTypes = {
   shelfType: PropTypes.string.isRequired,
   book: PropTypes.object.isRequired,
+  handleShelfTypeChange: PropTypes.func.isRequired,
 }
 
 export default Book;
