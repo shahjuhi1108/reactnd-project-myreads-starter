@@ -19,7 +19,7 @@ class Book extends Component {
     return(
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + this.props.book.imageLinks.thumbnail + ')' }}></div>
+          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(' + (this.props.book.imageLinks === undefined ? "" : this.props.book.imageLinks.thumbnail) + ')' }}></div>
           <div className="book-shelf-changer">
             <select value={this.props.shelfType} onChange={this.handleChange}>
               {options}
@@ -29,7 +29,7 @@ class Book extends Component {
         <div className="book-title">{this.props.book.title}</div>
         <div className="book-authors">
         {this.props.book.authors.map((author) => (
-          <div className="book-author">{author}</div>
+          <div key={author} className="book-author">{author}</div>
         ))}
         </div>
       </div>
@@ -38,7 +38,7 @@ class Book extends Component {
 }
 
 Book.propTypes = {
-  shelfType: PropTypes.string.isRequired,
+  shelfType: PropTypes.string,
   book: PropTypes.object.isRequired,
   handleShelfTypeChange: PropTypes.func.isRequired,
 }

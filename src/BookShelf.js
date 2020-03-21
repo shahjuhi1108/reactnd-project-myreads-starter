@@ -6,6 +6,8 @@ import * as Constants from './Constants'
 
 class BookShelf extends Component {
   render() {
+
+
     return(
       <div className="list-books-content">
         <div>
@@ -14,7 +16,7 @@ class BookShelf extends Component {
             <div className="bookshelf-books">
               <ol className="books-grid">
               {this.props.bookDetails.filter((book) => {
-                  return this.props.shelfType === book.shelf
+                  return (this.props.shelfType === book.shelf || this.props.ignoreShelf)
                 }).map((book) => (
                   <li key={book.id}>
                   <Book handleShelfTypeChange={this.props.handleShelfTypeChange} shelfType={this.props.shelfType} book={book}/>
@@ -30,9 +32,13 @@ class BookShelf extends Component {
 }
 
 BookShelf.propTypes = {
-  shelfType: PropTypes.string.isRequired,
+  ignoreShelf: false
+}
+
+BookShelf.propTypes = {
+  shelfType: PropTypes.string,
   bookDetails: PropTypes.array.isRequired,
-  handleShelfTypeChange: PropTypes.func.isRequired,
+  handleShelfTypeChange: PropTypes.func,
 }
 
 export default BookShelf;
