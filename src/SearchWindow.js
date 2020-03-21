@@ -45,7 +45,7 @@ class SearchWindow extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            <BookShelf ignoreShelf={true} bookDetails={this.state.searchedBooks} />
+            <BookShelf ignoreShelf={true} bookDetails={this.state.searchedBooks} handleShelfTypeChange={this.props.handleShelfTypeChange}/>
           </ol>
         </div>
       </div>
@@ -55,6 +55,7 @@ class SearchWindow extends Component {
 
 SearchWindow.propTypes = {
   showSearchPage: PropTypes.bool.isRequired,
+  handleShelfTypeChange: PropTypes.func.isRequired,
 }
 
 export default SearchWindow

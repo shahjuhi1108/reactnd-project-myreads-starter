@@ -56,7 +56,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <SearchWindow showSearchPage={this.state.showSearchPage} />
+          <SearchWindow showSearchPage={this.state.showSearchPage} handleShelfTypeChange={this.handleShelfTypeChange}/>
         ) : (
           <div className="list-books">
             <div className="list-books-title">

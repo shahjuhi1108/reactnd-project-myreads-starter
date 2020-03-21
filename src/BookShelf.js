@@ -31,7 +31,7 @@ class BookShelf extends Component {
   }
 }
 
-BookShelf.propTypes = {
+BookShelf.defaultProps = {
   ignoreShelf: false
 }
 

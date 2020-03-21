@@ -11,10 +11,21 @@ class Book extends Component {
   render() {
 
     const options = [];
+    const authors = [];
 
-    Object.keys(Constants.shelfAlias).forEach((shelfType) => (
-      options.push(<option key={shelfType} value={shelfType}>{Constants.shelfAlias[shelfType]}</option>)
-    ))
+    if(Array.isArray(this.props.book.authors))  {
+      this.props.book.authors.map((author) => (
+        authors.push(<div key={author} className="book-author">{author}</div>)
+      ))}
+
+
+    Object.keys(Constants.shelfAlias).forEach((shelfType) => {
+      if(shelfType === "move") {
+        options.push(<option key={shelfType} value={shelfType} disabled>{Constants.shelfAlias[shelfType]}</option>)
+      }else{
+        options.push(<option key={shelfType} value={shelfType}>{Constants.shelfAlias[shelfType]}</option>)
+      }
+    })
 
     return(
       <div className="book">
@@ -28,13 +39,15 @@ class Book extends Component {
         </div>
         <div className="book-title">{this.props.book.title}</div>
         <div className="book-authors">
-        {this.props.book.authors.map((author) => (
-          <div key={author} className="book-author">{author}</div>
-        ))}
+          {authors}
         </div>
       </div>
     );
   }
+}
+
+Book.defaultProps = {
+  shelfType: "move"
 }
 
 Book.propTypes = {
