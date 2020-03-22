@@ -72,10 +72,9 @@ class BooksApp extends React.Component {
         return (
           <div className="app">
 
-              <Route exact path='/search' render={({ history }) => (
+              <Route exact path='/search' render={() => (
                   <SearchWindow handleShelfTypeChange={(book, newShelf) => {
                       this.handleAddNewBook(book, newShelf)
-                      history.push('/')
                     }}
                     />
                 )}
