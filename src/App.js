@@ -32,6 +32,20 @@ class BooksApp extends React.Component {
         })
     }
 
+    handleAddNewBook = (bookToAdd, shelf) => {
+      if (this.state.bookDetails.find((book) => book.id === bookToAdd.id)) {
+        this.handleShelfTypeChange(bookToAdd, shelf)
+      }
+      else{
+        BooksAPI.update(bookToAdd, shelf)
+        .then((response) => {
+          bookToAdd.shelf = shelf
+          this.setState((prevState) => ({
+            bookDetails: prevState.bookDetails.concat([bookToAdd])
+          }))
+        })
+      }
+    }
 
 
   handleShelfTypeChange = (book, newShelf) => {
@@ -58,12 +72,16 @@ class BooksApp extends React.Component {
         return (
           <div className="app">
 
-              <Route exact path='/search' render={() => (
-                  <SearchWindow handleShelfTypeChange={this.handleShelfTypeChange}/>
+              <Route exact path='/search' render={({ history }) => (
+                  <SearchWindow handleShelfTypeChange={(book, newShelf) => {
+                      this.handleAddNewBook(book, newShelf)
+                      history.push('/')
+                    }}
+                    />
                 )}
               />
 
-            <Route exact path='/' render={({history}) => (
+            <Route exact path='/' render={() => (
                   <div className="list-books">
                     <div className="list-books-title">
                       <h1>MyReads</h1>
