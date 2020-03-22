@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 import BookShelf from './BookShelf'
+import { Link } from 'react-router-dom'
 
 
 class SearchWindow extends Component {
@@ -30,7 +31,12 @@ class SearchWindow extends Component {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</button>
+        <Link
+          className='close-search'
+          to = '/'
+          refresh='true'>
+          Close
+        </Link>
           <div className="search-books-input-wrapper">
             {/*
               NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -54,7 +60,6 @@ class SearchWindow extends Component {
 }
 
 SearchWindow.propTypes = {
-  showSearchPage: PropTypes.bool.isRequired,
   handleShelfTypeChange: PropTypes.func.isRequired,
 }
 

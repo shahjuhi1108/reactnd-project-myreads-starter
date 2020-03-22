@@ -3,6 +3,9 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import BookShelf from './BookShelf'
 import SearchWindow from './SearchWindow'
+import { Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+
 
 class BooksApp extends React.Component {
   state = {
@@ -18,7 +21,6 @@ class BooksApp extends React.Component {
        "wantToRead",
        "read",
      ],
-    showSearchPage: false
   }
 
   componentDidMount() {
@@ -53,26 +55,33 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    return (
-      <div className="app">
-        {this.state.showSearchPage ? (
-          <SearchWindow showSearchPage={this.state.showSearchPage} handleShelfTypeChange={this.handleShelfTypeChange}/>
-        ) : (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            {this.state.shelfType.map((shelf) => (
-              <BookShelf key={shelf} shelfType={shelf} bookDetails={this.state.bookDetails} handleShelfTypeChange={this.handleShelfTypeChange}/>
-            ))}
-            <div className="open-search">
-              <button onClick={() => this.setState({ showSearchPage: true })} >Add a book</button>
-            </div>
+        return (
+          <div className="app">
+
+              <Route exact path='/search' render={() => (
+                  <SearchWindow handleShelfTypeChange={this.handleShelfTypeChange}/>
+                )}
+              />
+
+            <Route exact path='/' render={({history}) => (
+                  <div className="list-books">
+                    <div className="list-books-title">
+                      <h1>MyReads</h1>
+                    </div>
+                    {this.state.shelfType.map((shelf) => (
+                      <BookShelf key={shelf} shelfType={shelf} bookDetails={this.state.bookDetails} handleShelfTypeChange={this.handleShelfTypeChange}/>
+                    ))}
+                      <Link
+                        to='/search'
+                        className="open-search"
+                        >Add a Book</Link>
+                  </div>
+                )}
+              />
+
           </div>
-        )}
-      </div>
-    )
-  }
+        )
+      }
 }
 
 export default BooksApp
