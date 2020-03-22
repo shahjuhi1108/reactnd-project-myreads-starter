@@ -32,8 +32,12 @@ class BooksApp extends React.Component {
         })
     }
 
+    findBook = (bookToSearch) => (
+       this.state.bookDetails.find((book) => book.id === bookToSearch.id)
+    )
+
     handleAddNewBook = (bookToAdd, shelf) => {
-      if (this.state.bookDetails.find((book) => book.id === bookToAdd.id)) {
+      if (this.findBook(bookToAdd)) {
         this.handleShelfTypeChange(bookToAdd, shelf)
       }
       else{
@@ -73,7 +77,7 @@ class BooksApp extends React.Component {
           <div className="app">
 
               <Route exact path='/search' render={() => (
-                  <SearchWindow handleShelfTypeChange={(book, newShelf) => {
+                  <SearchWindow findBookInArray={this.findBook} handleShelfTypeChange={(book, newShelf) => {
                       this.handleAddNewBook(book, newShelf)
                     }}
                     />

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 
 class SearchWindow extends Component {
   state = {
-    searchedBooks:[],
+    searchedBooksState:[],
   }
 
   searchBarChangeHandle = (event) => {
@@ -15,13 +15,23 @@ class SearchWindow extends Component {
     BooksAPI.search(event.target.value)
     .then((searchedBooks) => {
       if(Array.isArray(searchedBooks)) {
+        const newBookArray = []
+        searchedBooks.forEach((book) => {
+          const foundBook = this.props.findBookInArray(book)
+          if(foundBook){
+            newBookArray.push(foundBook)
+          }
+          else{
+            newBookArray.push(book)
+          }
+        })
         this.setState((prevState) => ({
-          searchedBooks: searchedBooks,
+          searchedBooksState: newBookArray,
         }))
       }
       else{
         this.setState((prevState) => ({
-          searchedBooks: [],
+          searchedBooksState: [],
         }))
       }
     })
@@ -51,7 +61,7 @@ class SearchWindow extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            <BookShelf ignoreShelf={true} bookDetails={this.state.searchedBooks} handleShelfTypeChange={this.props.handleShelfTypeChange}/>
+            <BookShelf ignoreShelf={true} bookDetails={this.state.searchedBooksState} handleShelfTypeChange={this.props.handleShelfTypeChange}/>
           </ol>
         </div>
       </div>
@@ -61,6 +71,7 @@ class SearchWindow extends Component {
 
 SearchWindow.propTypes = {
   handleShelfTypeChange: PropTypes.func.isRequired,
+  findBookInArray: PropTypes.func.isRequired,
 }
 
 export default SearchWindow
