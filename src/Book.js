@@ -47,7 +47,7 @@ class Book extends Component {
 }
 
 Book.defaultProps = {
-  shelfType: "move"
+  shelfType: "none"
 }
 
 Book.propTypes = {
