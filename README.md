@@ -3,7 +3,9 @@
 This was an academic project that I worked on as part of the Udacity React Developer nanodegree program. The app allows users to search from the database of books, and keep track of those books in different virtual bookshelves. Users can track the books in Read, Currently Reading, and Want To Read shelves. App also allows the books to move between the shelves throughout their lifecycle. The books can be removed from the shelves by using the 'none' option.
 
 *Live Demo: https://shahjuhi1108.github.io/reactnd-project-myreads-starter/*
+
 *Here is the link to the terms that you can search for: https://github.com/shahjuhi1108/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md*
+
 *Click on the add button towards the bottom of the page, to search and add new books*
 
 ## Backend Server
